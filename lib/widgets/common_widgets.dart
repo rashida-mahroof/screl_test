@@ -1,5 +1,6 @@
 import 'package:auto_binding_field/auto_binding_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   final String? value;
@@ -8,12 +9,13 @@ class CustomTextField extends StatelessWidget {
   final Function(String)? onChanged;
   final int? maxLines;
   final String?  hintText;
+  final int? maxLength;
   const CustomTextField({
     super.key,
     this.value,
     required this.label,
     this.validator,
-    this.onChanged, this.hintText, this.maxLines,
+    this.onChanged, this.hintText, this.maxLines,this.maxLength
   });
 
   @override
@@ -28,8 +30,12 @@ class CustomTextField extends StatelessWidget {
         const SizedBox(height: 8), 
         AutoBindingTextField(
           value: value,
+          inputFormatters: [
+              LengthLimitingTextInputFormatter(maxLength ?? 20),
+          ],
           maxLines: maxLines ?? 1,
           decoration: InputDecoration(
+            
             hintText: hintText,
             border: const OutlineInputBorder(),
             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),

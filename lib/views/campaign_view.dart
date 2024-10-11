@@ -67,6 +67,7 @@ class EmailCampaignForm extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: 20),
                                 CustomTextField(
+                                  maxLength: 50,
                                   maxLines: 4,
                                   hintText: 'Enter text here...',
                                   label: 'Preview text',
@@ -79,6 +80,12 @@ class EmailCampaignForm extends ConsumerWidget {
                                     }
                                     return null;
                                   },
+                                ),
+                                const Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                     Text('Keep this simple of 50 characters'),
+                                  ],
                                 ),
                                 const SizedBox(height: 20),
                                 Row(
@@ -140,12 +147,34 @@ class EmailCampaignForm extends ConsumerWidget {
                                   children: [
                                     Expanded(
                                         child: OutlinedButton(
+                                           style: OutlinedButton.styleFrom(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+          side:  BorderSide(color:Theme.of(context).colorScheme.primary), 
+        ),
                                             onPressed: () async {
                                               campaignModelNotifier.saveDraft(campaignModel);
+                                               ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                  content: Text(
+                                                      'Draft Saved')),
+                                            );
                                             },
                                             child: const Text('Save Draft'))),
+                                            const SizedBox(width:20),
                                     Expanded(
                                       child: ElevatedButton(
+                                        
+                                         style:  ElevatedButton.styleFrom(
+                                         
+                                          backgroundColor: Colors.deepOrange,
+                                          foregroundColor: Colors.white,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+        ),
                                         onPressed: () {
                                           if (_formKey.currentState!
                                               .validate()) {
@@ -164,6 +193,7 @@ class EmailCampaignForm extends ConsumerWidget {
                                             );
                                           }
                                         },
+                                       
                                         child: const Text('Next Step'),
                                       ),
                                     ),

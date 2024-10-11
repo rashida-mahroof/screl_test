@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:screl_test/models/campaign_model.dart';
 
@@ -15,6 +16,9 @@ class CampaignModelNotifier extends StateNotifier<CampaignModel> {
   }
      Future<void> load() async {
     final data = await Helper.fromDB(); 
+    if (kDebugMode) {
+      print(data);
+    }
     if (data != null) {
       state = data; 
     }
